@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vinimusicplayer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://t4.ftcdn.net/jpg/01/06/47/61/360_F_106476142_zMZkkTkhMeq0DIjV20oJI00e3QXLYIGN.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="main">
+        <div class="topbar">
+            <button onclick="sidebar()"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+           <button onclick="openp()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+        </div>
+        <div class="playingpart">
+            <img src="https://t4.ftcdn.net/jpg/01/06/47/61/360_F_106476142_zMZkkTkhMeq0DIjV20oJI00e3QXLYIGN.jpg" alt="img">
+        </div>
+        <div class="controlpart">
+            <h3>College</h3>
+            <p>Vini</p><br>
+            <audio id="song" src="./[iSongs.info] 01 - College Gatalli.mp3" ></audio>                    
+            <input type="range" min="0" max="100" id="slider" value="0">
+            <div class="mainbtns">
+                <div id="previous"><i class="fa fa-fast-backward" aria-hidden="true"></i></div>
+                <div  onclick="playpause()"><i class="fa fa-play" aria-hidden="true" id="playbtn"></i></div>
+                <div id="next"><i class="fa fa-fast-forward" aria-hidden="true"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+        let slider = document.getElementById("slider");
+        let song = document.getElementById("song");
+        let playbtn = document.getElementById("playbtn");
+
+        song.onloadedmetadata = function(){
+            slider.max = song.duration;
+            slider.value = song.currentTime;
+
+        }
+
+        function playpause(){
+            if(playbtn.classList.contains("fa-pause")){
+                song.pause();
+                playbtn.classList.remove("fa-pause");
+                playbtn.classList.add("fa-play");
+            }
+            else{
+                song.play();
+                playbtn.classList.add("fa-pause");
+                playbtn.classList.remove("fa-play");
+                
+            }
+            
+        }
+
+        if(song.pause()){
+            setInterval(()=>{
+                slider.value=song.currentTime;
+            },500)
+        }
+
+        slider.onchange = function(){
+            song.play();
+            song.currentTime = slider.value;
+            playbtn.classList.add("fa-pause");
+            playbtn.classList.remove("fa-play");
+        }
+
+    </script>
+</body>
+</html>
